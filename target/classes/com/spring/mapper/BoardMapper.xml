@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.spring.mapper.BoardMapper">
+  
+  <select id="listboard" resultType="com.spring.domain.BoardVO">
+  <![CDATA[
+  select * from t_board where bno>0
+  ]]>
+  </select>
+  <insert id="insert">
+  insert into t_board(bno,title,content,writer)
+  values(SEQ_BOARD.nextval,#{title},#{content},#{writer})
+  </insert>
+  
+  <insert id="insertselectkey">
+  <selectKey keyProperty="bno" order="BEFORE" resultType="long">
+  select SEQ_BOARD.nextval from dual
+  </selectKey>
+  insert into t_board(bno,title,content,writer)
+  values(#{bno},#{title},#{content},#{writer})
+  </insert>
+	<select id="read" resultType="com.spring.domain.BoardVO">
+	select * from t_board where bno = #{bno}
+	</select>
+  <update id="update">
+  update t_board
+  set title =#{title},content =#{content},writer=#{writer},updatedate = sysdate
+  where bno=#{bno}
+  </update>
+  <delete id="delete">
+  delete from t_board where bno =#{bno}
+  </delete>
+  </mapper>
