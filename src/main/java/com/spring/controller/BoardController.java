@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.domain.BoardVO;
+import com.spring.domain.Criteria;
+import com.spring.domain.PageDTO;
 import com.spring.service.BoardService;
 
 import lombok.extern.log4j.Log4j;
@@ -33,8 +35,9 @@ public class BoardController {
 	 * }
 	 */
 	@GetMapping(value = "list")
-	public void list(Model model){
-		model.addAttribute("list", service.listread()) ;
+	public void list(Criteria criteria,  Model model){
+		model.addAttribute("list", service.listread(criteria)) ;
+		model.addAttribute("pageMaker", new PageDTO(criteria, 123));
 	
 	}
 	@PostMapping(value = "register")

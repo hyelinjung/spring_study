@@ -17,7 +17,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Board List Page
-                            <button id='regBtn'type="button" class="btn btn-xs pull-right">Dark</button>
+                            <button id='regBtn'type="button" class="btn btn-xs pull-right">새글 등록</button>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -46,6 +46,28 @@
                                      
                                 </table>
                                 
+                               <div class='pull-right'>
+							  <ul class="pagination ">
+							  <c:if test="${pageMaker.prev}">
+							  <li class="paginate_button previous">
+							      <a  href="#">Previous</a>
+							    </li></c:if>
+							    
+							    <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+							    <li class="paginate_button ">
+							      <a  href="#">${num}</a>
+							    </li>
+							    </c:forEach>
+							    
+							    <c:if test="${pageMaker.next}">
+							  <li class="paginate_button next">
+							      <a  href="#">Next</a>
+							    </li></c:if>
+							    
+							    
+							  </ul>
+							</div> <!-- pagination end -->
+                                
                                 <div class="modal" id="myModal" tabindex="-1">
 					  <div class="modal-dialog">
 					    <div class="modal-content">
@@ -72,11 +94,38 @@
                     <!-- /.panel -->
            </div>
             <!-- /.row -->
-      <%@include file="../includes/footer.jsp" %> 
-
-    <!-- jQuery -->
-    <!-- <script src="/resources/vendor/jquery/jquery.min.js"></script>
- -->
+              <%@include file="../includes/footer.jsp" %> 
+            
+             <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+        $(".sidebar-nav")
+        .attr("class", "sidebar-nav navbar-collapse collapes")
+        .attr("aria-expanded",'false')
+        .attr("style","height:1px");
+        
+   var result = '<c:out value="${result}"/>'
+   checkModal(result);
+   history.replaceState({},null,null);
    
+   function checkModal(result){
+	   if(result === ''||history.state){
+		   return;
+	   }
+	   if(parseInt(result)>0){
+		   $(".modal-body").html("게시글"+parseInt(result)+"번이 등록되었습니다.");
+	   }   
+    
+	   $("#myModal").modal("show");
+   }
+   $("#regBtn").on("click", function(){
+	   self.location="/board/register";
+   });
+    });
+   
+    
+    </script>
 
-
+ 

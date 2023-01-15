@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.spring.domain.BoardVO;
+import com.spring.domain.Criteria;
 import com.spring.mapper.BoardMapper;
 import com.spring.service.BoardService;
 
@@ -40,13 +41,15 @@ public class MapperTests {
 	 * if(vo ==null) { return; } log.info("제목을 수정합니다"); vo.setTitle("수정한 제목");
 	 * log.info("결과:" + service.update(vo)); }
 	 */
+	/*
+	 * @Test public void test() { BoardVO vo = new BoardVO(); vo.setContent("테스트");
+	 * vo.setTitle("테스트"); vo.setWriter("테스트"); service.regist(vo);
+	 * 
+	 * }
+	 */
 	@Test
 	public void test() {
-		BoardVO vo = new BoardVO();
-		vo.setContent("테스트");
-		vo.setTitle("테스트");
-		vo.setWriter("테스트");
-		service.regist(vo);
+		service.listread(new Criteria(2,10)).forEach(board ->log.info(board));
 		
 	}
 }

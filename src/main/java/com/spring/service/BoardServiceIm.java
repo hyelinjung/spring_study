@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.domain.BoardVO;
+import com.spring.domain.Criteria;
 import com.spring.mapper.BoardMapper;
 
 import lombok.extern.log4j.Log4j;
@@ -41,11 +42,11 @@ public class BoardServiceIm implements BoardService {
 		return mapper.delete(bno) == 1;
 	}
 
+
 	@Override
-	public List<BoardVO> listread() {
-		
-		return mapper.listboard();
-		
+	public List<BoardVO> listread(Criteria criteria) {
+		log.info(criteria);
+		return mapper.listPaging(criteria);
 	}
 
 }
